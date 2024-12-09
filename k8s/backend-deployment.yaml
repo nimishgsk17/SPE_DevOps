@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: backend-container
-        image: your-dockerhub-username/backend:latest
+        image: nimishgsk/backend:latest
         ports:
         - containerPort: 8081
