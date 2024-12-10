@@ -22,7 +22,7 @@ spec:
 
         env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:mysql://mysql-service:3306/fullstack"
+              value: "jdbc:mysql://localhost:3306/fullstack"
             - name: SPRING_DATASOURCE_USERNAME
               value: "CEO"
             - name: SPRING_DATASOURCE_PASSWORD
