@@ -1,12 +1,24 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-db
+  name: mysql-service
 spec:
   selector:
-    app: mysql
+    app: mysql-db
   ports:
     - protocol: TCP
       port: 3306
-      targetPort: 3306
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mysql-db
+  ports:
+    - protocol: TCP
+      port: 3306
