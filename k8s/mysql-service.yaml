@@ -8,7 +8,7 @@ spec:
     app: mysql-db
   ports:
     - protocol: TCP
-      port: 3306
+      port: 3307
   type: ClusterIP
 ---
 apiVersion: v1
@@ -21,4 +21,4 @@ spec:
     app: mysql-db
   ports:
     - protocol: TCP
-      port: 3306
+      port: 3307
