@@ -5,7 +5,7 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: backend
@@ -19,3 +19,14 @@ spec:
         image: nimishgsk/backend:latest
         ports:
         - containerPort: 8081
+        env:
+        - name: DB_HOST
+          value: "mysql"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_NAME
+          value: "fullstack"
+        - name: DB_USER
+          value: "CEO"
+        - name: DB_PASSWORD
+          value: "CEO_Str0ng@2024!"
