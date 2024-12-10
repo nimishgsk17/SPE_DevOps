@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql
 spec:
+  serviceName: mysql-headless
   replicas: 1
   selector:
     matchLabels:
@@ -16,7 +17,7 @@ spec:
         - name: mysql
           image: mysql:8.0
           ports:
-            - containerPort: 3307
+            - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "Tom&Jerry@1"
@@ -27,20 +28,26 @@ spec:
             - name: MYSQL_PASSWORD
               value: "CEO_Str0ng@2024!"
           volumeMounts:
-            - name: mysql-persistent-storage
+            - name: mysql-data
               mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-persistent-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: Service
 metadata:
-  name: mysql-pvc
+  name: mysql-headless
 spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
+  clusterIP: None
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
